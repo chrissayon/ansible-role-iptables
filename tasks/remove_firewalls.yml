@@ -1,0 +1,5 @@
+---
+- name: Remove UFW
+  apt:
+    pkg: ufw
+    state: absent

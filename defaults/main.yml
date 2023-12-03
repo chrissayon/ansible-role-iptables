@@ -1,0 +1,4 @@
+---
+hardening_type: webserver
+
+remove_existing_firewalls: false

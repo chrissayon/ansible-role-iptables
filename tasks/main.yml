@@ -1,0 +1,13 @@
+---
+- name: Remove firewalls
+  ansible.builtin.include_tasks: remove_firewalls.yml
+  when: remove_existing_firewalls
+
+- name: Install Iptables
+  ansible.builtin.apt:
+    name: iptables
+    update_cache: true
+
+- name: Import Webserver play
+  ansible.builtin.include_tasks: webserver.yml
+  when: hardening_type == "webserver"

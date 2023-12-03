@@ -1,0 +1,29 @@
+---
+- name: Iptables flush filter
+  ansible.builtin.iptables:
+    table: filter
+    chain: "{{ item }}"
+    flush: yes
+  with_items: ["INPUT", "FORWARD", "OUTPUT"]
+
+- name: Allow packets on TCP for SSH, HTTP, and HTTPS
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_ports:
+      - 22
+      - 80
+      - 443
+    jump: ACCEPT
+
+- name: Default INPUT Policy to drop all traffic
+  iptables:
+    table: filter
+    chain: INPUT
+    policy: DROP
+
+- name: Default OUTPUT Policy to accept all traffic
+  iptables:
+    table: filter
+    chain: OUTPUT
+    policy: ACCEPT
