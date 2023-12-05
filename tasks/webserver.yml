@@ -1,11 +1,4 @@
 ---
-- name: Iptables flush filter
-  ansible.builtin.iptables:
-    table: filter
-    chain: "{{ item }}"
-    flush: yes
-  with_items: ["INPUT", "FORWARD", "OUTPUT"]
-
 - name: Allow packets on TCP for SSH, HTTP, and HTTPS
   ansible.builtin.iptables:
     chain: INPUT
